@@ -31,18 +31,33 @@ public class UserPortfolio {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+        return id; 
+        }
+    public void setId(Long id) { 
+    this.id = id; 
+    }
 
-    public Long getUserid() { return userid; }
-    public void setUserid(Long userid) { this.userid = userid; }
+    public Long getUserid() {
+         return userid; 
+         }
+    public void setUserid(Long userid) { 
+        this.userid = userid; 
+        }
 
-    public String getPortfolioName() { return portfolioName; }
-    public void setPortfolioName(String portfolioName) { this.portfolioName = portfolioName; }
+    public String getPortfolioName() { 
+        return portfolioName; 
+        }
+    public void setPortfolioName(String portfolioName) { 
+        this.portfolioName = portfolioName; 
+        }
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public Timestamp getCreatedAt() { 
+        return createdAt; 
+        }
+    public void setCreatedAt(Timestamp createdAt) { 
+        this.createdAt = createdAt; 
+        }
 
     public Timestamp getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
