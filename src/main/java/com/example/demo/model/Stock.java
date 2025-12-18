@@ -19,13 +19,20 @@ public class Stock {
     @Column(nullable = false)
     private Boolean active = true; // defaults to true
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+   
+    public Long getId() { 
+        return id; 
+        }
+    public void setId(Long id) {
+     this.id = id; 
+     }
 
-    public String getTicker() { return ticker; }
-    public void setTicker(String ticker) { this.ticker = ticker; }
-
+    public String getTicker() { 
+        return ticker; 
+        }
+    public void setTicker(String ticker) { 
+    this.ticker = ticker; 
+    }
     public String getCompanyName() {
          return companyName; 
          }
