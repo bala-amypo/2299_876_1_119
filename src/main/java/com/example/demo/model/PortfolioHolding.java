@@ -69,6 +69,9 @@ public class PortfolioHolding {
         }
 
     public Timestamp getLastUpdated() { 
-        return lastUpdated; }
-    public void setLastUpdated(Timestamp lastUpdated) { this.lastUpdated = lastUpdated; }
+        return lastUpdated; 
+        }
+    public void setLastUpdated(Timestamp lastUpdated) {
+         this.lastUpdated = lastUpdated; 
+         }
 }
