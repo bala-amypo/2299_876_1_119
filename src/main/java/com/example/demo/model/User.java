@@ -57,13 +57,12 @@ public class User {
         this.role = role;
          }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-
-    // ===== DEFAULT CONSTRUCTOR =====
+    public LocalDateTime getCreatedAt() { 
+        return createdAt; 
+        }
     public User() {
     }
 
-    // ===== PARAMETERIZED CONSTRUCTOR =====
     public User(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
