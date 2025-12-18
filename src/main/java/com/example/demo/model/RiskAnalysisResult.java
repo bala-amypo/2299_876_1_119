@@ -19,22 +19,35 @@ public class RiskAnalysisResult {
     private Boolean isHighRisk;
     private String notes;
 
-    // ===== GETTERS & SETTERS =====
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+        return id; 
+        }
+    public void setId(Long id) { 
+    this.id = id; 
+    }
 
-    public UserPortfolio getPortfolio() { return portfolio; }
-    public void setPortfolio(UserPortfolio portfolio) { this.portfolio = portfolio; }
+    public UserPortfolio getPortfolio() { 
+        return portfolio; 
+        }
+    public void setPortfolio(UserPortfolio portfolio) { 
+        this.portfolio = portfolio; 
+        }
 
-    public Timestamp getAnalysisDate() { return analysisDate; }
+    public Timestamp getAnalysisDate() {
+         return analysisDate; 
+         }
 
-    public Double getHighestStockPercentage() { return highestStockPercentage; }
+    public Double getHighestStockPercentage() {
+         return highestStockPercentage; 
+         }
     public void setHighestStockPercentage(Double highestStockPercentage) {
         this.highestStockPercentage = highestStockPercentage;
     }
 
-    public Double getHighestSectorPercentage() { return highestSectorPercentage; }
+    public Double getHighestSectorPercentage() {
+         return highestSectorPercentage; 
+         }
     public void setHighestSectorPercentage(Double highestSectorPercentage) {
         this.highestSectorPercentage = highestSectorPercentage;
     }
