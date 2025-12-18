@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Stock {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -16,42 +17,36 @@ public class Stock {
     private String sector;
 
     @Column(nullable = false)
-    private Boolean active = true; 
+    private Boolean active = true;
 
-   
     public Long getId() { 
         return id; 
         }
     public void setId(Long id) {
-     this.id = id; 
-     }
-
-    public String getTicker() { 
-        return ticker; 
-        }
-    public void setTicker(String ticker) { 
-    this.ticker = ticker; 
-    }
-    public String getCompanyName() {
-         return companyName; 
-         }
-    public void setCompanyName(String companyName){
-     this.companyName = companyName;
+     this.id = id;
       }
 
-    public String getSector(){
-     return sector;
-      }
+    public String getTicker() { return ticker; }
+    public void setTicker(String ticker) { this.ticker = ticker; }
 
-    public void setSector(String sector){
-         this.sector = sector; 
+    public String getCompanyName() { return companyName; }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
+
+    public String getSector() { return sector; }
+    public void setSector(String sector) { this.sector = sector; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+
+    // ===== DEFAULT CONSTRUCTOR =====
+    public Stock() {
     }
 
-    public Boolean getActive() {
-         return active; 
-         }
-    public void setActive(Boolean active) {
-         this.active = active;
-          }
+    // ===== PARAMETERIZED CONSTRUCTOR =====
+    public Stock(String ticker, String companyName, String sector, Boolean active) {
+        this.ticker = ticker;
+        this.companyName = companyName;
+        this.sector = sector;
+        this.active = active;
+    }
 }
-
