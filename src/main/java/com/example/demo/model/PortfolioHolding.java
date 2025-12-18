@@ -21,32 +21,52 @@ public class PortfolioHolding {
     private BigDecimal marketValue;
     private Timestamp lastUpdated;
 
-    // ===== GETTERS & SETTERS =====
+    
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+    return id; 
+    }
+    public void setId(Long id) { 
+    this.id = id; 
+    }
 
-    public UserPortfolio getPortfolio() { return portfolio; }
-    public void setPortfolio(UserPortfolio portfolio) { this.portfolio = portfolio; }
+    public UserPortfolio getPortfolio() { 
+    return portfolio; 
+    }
+    public void setPortfolio(UserPortfolio portfolio) { 
+    this.portfolio = portfolio; 
+    }
 
-    public Stock getStock() { return stock; }
-    public void setStock(Stock stock) { this.stock = stock; }
+    public Stock getStock() { 
+    return stock;
+     }
+    public void setStock(Stock stock) { 
+    this.stock = stock; 
+    }
 
-    public Double getQuantity() { return quantity; }
-    public void setQuantity(Double quantity) { this.quantity = quantity; }
+    public Double getQuantity() { 
+    return quantity; 
+    }
+    public void setQuantity(Double quantity) { 
+    this.quantity = quantity; 
+    }
 
-    public BigDecimal getMarketValue() { return marketValue; }
-    public void setMarketValue(BigDecimal marketValue) { this.marketValue = marketValue; }
+    public BigDecimal getMarketValue() { 
+    return marketValue; 
+    }
+    public void setMarketValue(BigDecimal marketValue) {
+     this.marketValue = marketValue; 
+     }
 
-    public Timestamp getLastUpdated() { return lastUpdated; }
+    public Timestamp getLastUpdated() { 
+    return lastUpdated; 
+    }
 
-    // ===== DEFAULT CONSTRUCTOR =====
+    
     public PortfolioHolding() {
     }
 
-    // ===== PARAMETERIZED CONSTRUCTOR =====
-    public PortfolioHolding(UserPortfolio portfolio, Stock stock,
-                            Double quantity, BigDecimal marketValue) {
+    public PortfolioHolding(UserPortfolio portfolio, Stock stock,Double quantity, BigDecimal marketValue) {
         this.portfolio = portfolio;
         this.stock = stock;
         this.quantity = quantity;
