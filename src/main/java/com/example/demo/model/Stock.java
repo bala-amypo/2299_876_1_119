@@ -17,7 +17,7 @@ public class Stock {
     private String sector;
 
     @Column(nullable = false)
-    private Boolean active = true; // defaults to true
+    private Boolean active = true; 
 
    
     public Long getId() { 
@@ -55,3 +55,4 @@ public class Stock {
          this.active = active;
           }
 }
+
