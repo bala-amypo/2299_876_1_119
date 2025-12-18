@@ -59,9 +59,17 @@ public class UserPortfolio {
         this.createdAt = createdAt; 
         }
 
-    public Timestamp getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
+    public Timestamp getUpdatedAt() { 
+        return updatedAt; 
+        }
+    public void setUpdatedAt(Timestamp updatedAt) {
+         this.updatedAt = updatedAt; 
+         }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public Boolean getActive() { 
+        return active; 
+        }
+    public void setActive(Boolean active) {
+         this.active = active; 
+         }
 }
