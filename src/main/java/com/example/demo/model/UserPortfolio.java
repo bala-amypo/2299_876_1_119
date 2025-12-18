@@ -21,12 +21,16 @@ public class UserPortfolio {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    // ===== GETTERS & SETTERS =====
+    public Long getId() { 
+        return id; 
+        }
+    public void setId(Long id) { 
+        this.id = id; 
+        }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getUserid() { return userid; }
+    public Long getUserid() { 
+        return userid; 
+        }
     public void setUserid(Long userid) { this.userid = userid; }
 
     public String getPortfolioName() { return portfolioName; }
