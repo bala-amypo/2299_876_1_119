@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String fullName;
@@ -15,57 +16,64 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     private String role = "MONITOR";
 
     private LocalDateTime createdAt;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
-
     public Long getId() { 
         return id; 
         }
     public void setId(Long id) {
-     this.id = id; 
-     }
+     this.id = id;
+      }
 
     public String getFullName() { 
-        return fullName; 
-        }
+    return fullName; 
+    }
     public void setFullName(String fullName) { 
-        this.fullName = fullName; 
-        }
+    this.fullName = fullName;
+     }
 
-    public String getEmail() {
-         return email; 
-         }
-    public void setEmail(String email) {
-         this.email = email; 
-         }
+    public String getEmail() { 
+    return email; 
+    }
+    public void setEmail(String email) { 
+    this.email = email; 
+    }
 
     public String getPassword() { 
         return password; 
         }
-    public void setPassword(String password) {
-     this.password = password; 
-     }
+    public void setPassword(String password) { 
+        this.password = password; 
+        }
 
     public String getRole() { 
         return role; 
         }
-    public void setRole(String role) {
-         this.role = role; 
+    public void setRole(String role) { 
+        this.role = role;
          }
 
-    public LocalDateTime getCreatedAt() { 
-        return createdAt; 
-        }
-    public void setCreatedAt(LocalDateTime createdAt) { 
-        this.createdAt = createdAt; 
-        }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    // ===== DEFAULT CONSTRUCTOR =====
+    public User() {
+    }
+
+    // ===== PARAMETERIZED CONSTRUCTOR =====
+    public User(String fullName, String email, String password, String role) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

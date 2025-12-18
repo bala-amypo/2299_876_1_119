@@ -26,23 +26,36 @@ public class Stock {
      this.id = id;
       }
 
-    public String getTicker() { return ticker; }
-    public void setTicker(String ticker) { this.ticker = ticker; }
+    public String getTicker() { 
+        return ticker; 
+        }
+    public void setTicker(String ticker) { 
+        this.ticker = ticker;
+         }
 
-    public String getCompanyName() { return companyName; }
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
+    public String getCompanyName() {
+         return companyName; 
+         }
+    public void setCompanyName(String companyName) { 
+    this.companyName = companyName; 
+    }
 
-    public String getSector() { return sector; }
-    public void setSector(String sector) { this.sector = sector; }
+    public String getSector() {
+     return sector; 
+     }
+    public void setSector(String sector) { 
+        this.sector = sector;
+         }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public Boolean getActive() { 
+    return active; 
+    }
+    public void setActive(Boolean active) { 
+        this.active = active; }
 
-    // ===== DEFAULT CONSTRUCTOR =====
     public Stock() {
     }
 
-    // ===== PARAMETERIZED CONSTRUCTOR =====
     public Stock(String ticker, String companyName, String sector, Boolean active) {
         this.ticker = ticker;
         this.companyName = companyName;
