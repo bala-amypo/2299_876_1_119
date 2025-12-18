@@ -39,22 +39,25 @@ public class RiskAnalysisResult {
         this.highestSectorPercentage = highestSectorPercentage;
     }
 
-    public Boolean getIsHighRisk() { return isHighRisk; }
-    public void setIsHighRisk(Boolean highRisk) { isHighRisk = highRisk; }
+    public Boolean getIsHighRisk() { 
+    return isHighRisk; 
+    }
+    public void setIsHighRisk(Boolean highRisk) { 
+    isHighRisk = highRisk; 
+    }
 
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
+    public String getNotes() { 
+    return notes; 
+    }
+    public void setNotes(String notes) {
+     this.notes = notes; 
+     }
 
-    // ===== DEFAULT CONSTRUCTOR =====
+    
     public RiskAnalysisResult() {
     }
 
-    // ===== PARAMETERIZED CONSTRUCTOR =====
-    public RiskAnalysisResult(UserPortfolio portfolio,
-                              Double highestStockPercentage,
-                              Double highestSectorPercentage,
-                              Boolean isHighRisk,
-                              String notes) {
+    public RiskAnalysisResult(UserPortfolio portfolio, Double highestStockPercentage, Double highestSectorPercentage,Boolean isHighRisk,String notes) {
         this.portfolio = portfolio;
         this.highestStockPercentage = highestStockPercentage;
         this.highestSectorPercentage = highestSectorPercentage;
