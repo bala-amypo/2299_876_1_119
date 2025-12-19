@@ -3,54 +3,33 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "risk_threshold", uniqueConstraints = @UniqueConstraint(columnNames = "threshold_name"))
 public class RiskThreshold {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String thresholdName;
+    @OneToOne
+    @JoinColumn(name = "portfolio_id", unique = true)
+    private UserPortfolio portfolio;
 
-    private float maxSectorPercentage;
+    private double maxLossPercentage;
+    private double maxExposurePercentage;
 
-    private float maxSingleStockPercentage;
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    private boolean active;
+    public UserPortfolio getPortfolio() { return portfolio; }
+    public void setPortfolio(UserPortfolio portfolio) { this.portfolio = portfolio; }
 
-    public RiskThreshold() {}
-
-    public Long getId() { 
-    return id; 
+    public double getMaxLossPercentage() { return maxLossPercentage; }
+    public void setMaxLossPercentage(double maxLossPercentage) {
+        this.maxLossPercentage = maxLossPercentage;
     }
-    public void setId(Long id) { 
-    this.id = id; 
-    }
 
-    public String getThresholdName() {
-     return thresholdName; 
-     }
-    public void setThresholdName(String thresholdName) {
-     this.thresholdName = thresholdName;
-      }
-
-    public float getMaxSectorPercentage() {
-     return maxSectorPercentage; 
-     }
-    public void setMaxSectorPercentage(float maxSectorPercentage) { 
-    this.maxSectorPercentage = maxSectorPercentage;
-     }
-
-    public float getMaxSingleStockPercentage() {
-     return maxSingleStockPercentage; 
-     }
-    public void setMaxSingleStockPercentage(float maxSingleStockPercentage) {
-     this.maxSingleStockPercentage = maxSingleStockPercentage; 
-     }
-
-    public boolean isActive() { 
-    return active;
-     }
-    public void setActive(boolean active) { 
-    this.active = active; 
+    public double getMaxExposurePercentage() { return maxExposurePercentage; }
+    public void setMaxExposurePercentage(double maxExposurePercentage) {
+        this.maxExposurePercentage = maxExposurePercentage;
     }
 }
