@@ -1,3 +1,4 @@
+// AuthController.java
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
@@ -14,6 +15,7 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
+    // LOGIN
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
         var user = userRepository.findByUsername(request.getUsername())
@@ -26,13 +28,15 @@ public class AuthController {
         AuthResponse response = new AuthResponse();
         response.setUserId(user.getId());
         response.setUsername(user.getUsername());
-        response.setToken("dummy-jwt-token"); // replace with real JWT if needed
+        response.setToken("dummy-token"); // replace with JWT if needed
+
         return response;
     }
 
+    // REGISTER
     @PostMapping("/register")
     public AuthResponse register(@RequestBody LoginRequest request) {
-        var user = new com.example.demo.model.User();
+        var user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         userRepository.save(user);
@@ -40,7 +44,7 @@ public class AuthController {
         AuthResponse response = new AuthResponse();
         response.setUserId(user.getId());
         response.setUsername(user.getUsername());
-        response.setToken("dummy-jwt-token");
+        response.setToken("dummy-token");
         return response;
     }
 }
