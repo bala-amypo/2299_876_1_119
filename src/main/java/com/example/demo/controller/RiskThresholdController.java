@@ -28,4 +28,3 @@ public class RiskThresholdController {
     }
 }
 
-in model i have 6 models like user,userportfolio,stock,riskthreshold,riskanalysisresult,portfoliohandlig but i have only left over is riskanalysisresu
