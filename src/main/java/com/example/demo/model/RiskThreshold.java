@@ -22,17 +22,35 @@ public class RiskThreshold {
     public Long getId() { 
     return id; 
     }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) { 
+    this.id = id; 
+    }
 
-    public String getThresholdName() { return thresholdName; }
-    public void setThresholdName(String thresholdName) { this.thresholdName = thresholdName; }
+    public String getThresholdName() {
+     return thresholdName; 
+     }
+    public void setThresholdName(String thresholdName) {
+     this.thresholdName = thresholdName;
+      }
 
-    public float getMaxSectorPercentage() { return maxSectorPercentage; }
-    public void setMaxSectorPercentage(float maxSectorPercentage) { this.maxSectorPercentage = maxSectorPercentage; }
+    public float getMaxSectorPercentage() {
+     return maxSectorPercentage; 
+     }
+    public void setMaxSectorPercentage(float maxSectorPercentage) { 
+    this.maxSectorPercentage = maxSectorPercentage;
+     }
 
-    public float getMaxSingleStockPercentage() { return maxSingleStockPercentage; }
-    public void setMaxSingleStockPercentage(float maxSingleStockPercentage) { this.maxSingleStockPercentage = maxSingleStockPercentage; }
+    public float getMaxSingleStockPercentage() {
+     return maxSingleStockPercentage; 
+     }
+    public void setMaxSingleStockPercentage(float maxSingleStockPercentage) {
+     this.maxSingleStockPercentage = maxSingleStockPercentage; 
+     }
 
-    public boolean isActive() { return active; }
-    public void setActive(boolean active) { this.active = active; }
+    public boolean isActive() { 
+    return active;
+     }
+    public void setActive(boolean active) { 
+    this.active = active; 
+    }
 }
