@@ -2,53 +2,48 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Stock;
 import com.example.demo.service.StockService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/stocks")
 public class StockController {
 
-    @Autowired
-    private StockService stockService;
+    private final StockService stockService;
 
-    @GetMapping
-    public List<Stock> getAllStocks() {
-        return (List<Stock>) stockService.getAllStocks();
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
     }
 
-    @GetMapping("/{ticker}")
-    public ResponseEntity<Stock> getStockByTicker(@PathVariable String ticker) {
-        Optional<Stock> stock = stockService.findByTicker(ticker);
-        return stock.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
+    // POST - create stock
     @PostMapping
     public Stock createStock(@RequestBody Stock stock) {
-        return stockService.saveStock(stock);
+        return stockService.createStock(stock);
     }
 
+    // GET - all stocks  ✅ NO stream()
+    @GetMapping
+    public List<Stock> getAllStocks() {
+        return stockService.getAllStocks();
+    }
+
+    // GET - stock by ticker
+    @GetMapping("/{ticker}")
+    public Stock getStockByTicker(@PathVariable String ticker) {
+        return stockService.getStockByTicker(ticker)
+                .orElseThrow(() -> new RuntimeException("Stock not found with ticker " + ticker));
+    }
+
+    // PUT - update stock
     @PutMapping("/{id}")
-    public ResponseEntity<Stock> updateStock(@PathVariable Long id, @RequestBody Stock stockDetails) {
-        Optional<Stock> optionalStock = stockService.getAllStocks().stream().filter(s -> s.getId().equals(id)).findFirst();
-        if (optionalStock.isEmpty()) return ResponseEntity.notFound().build();
-
-        Stock stock = optionalStock.get();
-        stock.setTicker(stockDetails.getTicker());
-        stock.setCompanyName(stockDetails.getCompanyName());
-        stock.setSector(stockDetails.getSector());
-        stock.setActive(stockDetails.isActive());
-        stockService.saveStock(stock);
-        return ResponseEntity.ok(stock);
+    public Stock updateStock(@PathVariable Long id, @RequestBody Stock stock) {
+        return stockService.updateStock(id, stock);
     }
 
+    // DELETE - delete stock
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStock(@PathVariable Long id) {
-        stockService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public void deleteStock(@PathVariable Long id) {
+        stockService.deleteStock(id);
     }
 }
