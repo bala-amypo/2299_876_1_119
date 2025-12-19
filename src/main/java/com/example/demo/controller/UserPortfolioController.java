@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.UserPortfolio;
 import com.example.demo.service.UserPortfolioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,21 +10,27 @@ import java.util.List;
 @RequestMapping("/api/portfolios")
 public class UserPortfolioController {
 
-    @Autowired
-    private UserPortfolioService portfolioService;
+    private final UserPortfolioService portfolioService;
 
-    @GetMapping
-    public List<UserPortfolio> getAllPortfolios() {
-        return portfolioService.getAllPortfolios();
+    public UserPortfolioController(UserPortfolioService portfolioService) {
+        this.portfolioService = portfolioService;
     }
 
-    @GetMapping("/user/{userid}")
-    public List<UserPortfolio> getPortfoliosByUserId(@PathVariable Long userid) {
-        return portfolioService.findByUserId(userid);
-    }
-
+    // POST /api/portfolios
     @PostMapping
     public UserPortfolio createPortfolio(@RequestBody UserPortfolio portfolio) {
-        return portfolioService.savePortfolio(portfolio);
+        return portfolioService.createPortfolio(portfolio);
+    }
+
+    // GET /api/portfolios/{id}
+    @GetMapping("/{id}")
+    public UserPortfolio getPortfolioById(@PathVariable Long id) {
+        return portfolioService.getPortfolioById(id);
+    }
+
+    // GET /api/portfolios/user/{userId}
+    @GetMapping("/user/{userId}")
+    public List<UserPortfolio> getPortfoliosByUser(@PathVariable Long userId) {
+        return portfolioService.getPortfoliosByUser(userId);
     }
 }

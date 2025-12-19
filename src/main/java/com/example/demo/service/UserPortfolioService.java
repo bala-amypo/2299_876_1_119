@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.model.User;
 import com.example.demo.model.UserPortfolio;
 import com.example.demo.repository.UserPortfolioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,18 +11,34 @@ import java.util.List;
 @Service
 public class UserPortfolioService {
 
-    @Autowired
-    private UserPortfolioRepository portfolioRepository;
+    private final UserPortfolioRepository portfolioRepository;
+    private final UserRepository userRepository;
 
-    public UserPortfolio savePortfolio(UserPortfolio portfolio) {
+    public UserPortfolioService(UserPortfolioRepository portfolioRepository,
+                                UserRepository userRepository) {
+        this.portfolioRepository = portfolioRepository;
+        this.userRepository = userRepository;
+    }
+
+    // POST /api/portfolios
+    public UserPortfolio createPortfolio(UserPortfolio portfolio) {
+        Long userId = portfolio.getUser().getId();
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
+
+        portfolio.setUser(user);
         return portfolioRepository.save(portfolio);
     }
 
-    public List<UserPortfolio> findByUserId(Long userid) {
-        return portfolioRepository.findByUserid(userid);
+    // GET /api/portfolios/{id}
+    public UserPortfolio getPortfolioById(Long id) {
+        return portfolioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Portfolio not found with id " + id));
     }
 
-    public List<UserPortfolio> getAllPortfolios() {
-        return portfolioRepository.findAll();
+    // GET /api/portfolios/user/{userId}
+    public List<UserPortfolio> getPortfoliosByUser(Long userId) {
+        return portfolioRepository.findByUserId(userId);
     }
 }
