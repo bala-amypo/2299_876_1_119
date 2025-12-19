@@ -48,3 +48,4 @@ public class RiskAnalysisResult {
     public float getHighestStockPercentage() { return highestStockPercentage; }
     public void setHighestStockPercentage(float highestStockPercentage) { this.highestStockPercentage = highestStockPercentage; }
 }
+
