@@ -1,34 +1,46 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.User;
-import com.example.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.example.demo.model.*;
+import com.example.demo.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/auth")
+public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserRepository userRepository;
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return (List<User>) userService.getAllUsers();
+    public AuthController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        Optional<User> user = userService.findByEmail(email);
-        return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    @PostMapping("/login")
+    public AuthResponse login(@RequestBody LoginRequest request) {
+        var user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        AuthResponse response = new AuthResponse();
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setToken("dummy-jwt-token"); // replace with real JWT if needed
+        return response;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    @PostMapping("/register")
+    public AuthResponse register(@RequestBody LoginRequest request) {
+        var user = new com.example.demo.model.User();
+        user.setUsername(request.getUsername());
+        user.setPassword(request.getPassword());
+        userRepository.save(user);
+
+        AuthResponse response = new AuthResponse();
+        response.setUserId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setToken("dummy-jwt-token");
+        return response;
     }
 }
