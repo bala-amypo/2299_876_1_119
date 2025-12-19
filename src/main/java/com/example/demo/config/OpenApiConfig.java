@@ -14,6 +14,6 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Demo API")
                         .version("1.0")
-                        .description("API documentation for Demo project"));
+                        .description("https://9195.pro604cr.amypo.ai/")
     }
 }
