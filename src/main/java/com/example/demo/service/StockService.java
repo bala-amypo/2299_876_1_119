@@ -5,7 +5,6 @@ import com.example.demo.repository.StockRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StockService {
@@ -21,31 +20,36 @@ public class StockService {
         return stockRepository.save(stock);
     }
 
-    // READ ALL  ✅ returns List (important)
+    // READ ALL
     public List<Stock> getAllStocks() {
         return stockRepository.findAll();
     }
 
-    // READ BY TICKER
-    public Optional<Stock> getStockByTicker(String ticker) {
-        return stockRepository.findByTicker(ticker);
+    // READ BY ID
+    public Stock getStockById(Long id) {
+        return stockRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Stock not found with id " + id));
     }
 
     // UPDATE
     public Stock updateStock(Long id, Stock updatedStock) {
-        return stockRepository.findById(id)
-                .map(stock -> {
-                    stock.setTicker(updatedStock.getTicker());
-                    stock.setCompanyName(updatedStock.getCompanyName());
-                    stock.setSector(updatedStock.getSector());
-                    stock.setActive(updatedStock.isActive());
-                    return stockRepository.save(stock);
-                })
-                .orElseThrow(() -> new RuntimeException("Stock not found with id " + id));
+        Stock stock = getStockById(id);
+        stock.setTicker(updatedStock.getTicker());
+        stock.setCompanyName(updatedStock.getCompanyName());
+        stock.setSector(updatedStock.getSector());
+        stock.setActive(updatedStock.isActive());
+        return stockRepository.save(stock);
     }
 
-    // DELETE
+    // DELETE (hard delete)
     public void deleteStock(Long id) {
         stockRepository.deleteById(id);
+    }
+
+    // DEACTIVATE (soft delete)
+    public Stock deactivateStock(Long id) {
+        Stock stock = getStockById(id);
+        stock.setActive(false);
+        return stockRepository.save(stock);
     }
 }
