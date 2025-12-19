@@ -10,56 +10,30 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String ticker;
 
     private String companyName;
+
     private String sector;
 
-    @Column(nullable = false)
-    private Boolean active = true;
+    private boolean active = true;
 
-    public Long getId() { 
-        return id; 
-        }
-    public void setId(Long id) {
-     this.id = id;
-      }
+    public Stock() {}
 
-    public String getTicker() { 
-        return ticker; 
-        }
-    public void setTicker(String ticker) { 
-        this.ticker = ticker;
-         }
+    // Getters and setters
 
-    public String getCompanyName() {
-         return companyName; 
-         }
-    public void setCompanyName(String companyName) { 
-    this.companyName = companyName; 
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getSector() {
-     return sector; 
-     }
-    public void setSector(String sector) { 
-        this.sector = sector;
-         }
+    public String getTicker() { return ticker; }
+    public void setTicker(String ticker) { this.ticker = ticker; }
 
-    public Boolean getActive() { 
-    return active; 
-    }
-    public void setActive(Boolean active) { 
-        this.active = active; }
+    public String getCompanyName() { return companyName; }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
 
-    public Stock() {
-    }
+    public String getSector() { return sector; }
+    public void setSector(String sector) { this.sector = sector; }
 
-    public Stock(String ticker, String companyName, String sector, Boolean active) {
-        this.ticker = ticker;
-        this.companyName = companyName;
-        this.sector = sector;
-        this.active = active;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

@@ -1,81 +1,46 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @Entity
+@Table(name = "portfolio_holding")
 public class PortfolioHolding {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private UserPortfolio portfolio;
+    private Long portfolioId;
 
-    @ManyToOne
-    private Stock stock;
+    private Long stockId;
 
-    private Double quantity;
+    private float quantity;
+
     private BigDecimal marketValue;
-    private Timestamp lastUpdated;
 
-    
+    private LocalDateTime lastUpdated;
 
-    public Long getId() { 
-    return id; 
-    }
-    public void setId(Long id) { 
-    this.id = id; 
-    }
+    public PortfolioHolding() {}
 
-    public UserPortfolio getPortfolio() { 
-    return portfolio; 
-    }
-    public void setPortfolio(UserPortfolio portfolio) { 
-    this.portfolio = portfolio; 
-    }
+    // Getters and setters
 
-    public Stock getStock() { 
-    return stock;
-     }
-    public void setStock(Stock stock) { 
-    this.stock = stock; 
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Double getQuantity() { 
-    return quantity; 
-    }
-    public void setQuantity(Double quantity) { 
-    this.quantity = quantity; 
-    }
+    public Long getPortfolioId() { return portfolioId; }
+    public void setPortfolioId(Long portfolioId) { this.portfolioId = portfolioId; }
 
-    public BigDecimal getMarketValue() { 
-    return marketValue; 
-    }
-    public void setMarketValue(BigDecimal marketValue) {
-     this.marketValue = marketValue; 
-     }
+    public Long getStockId() { return stockId; }
+    public void setStockId(Long stockId) { this.stockId = stockId; }
 
-    public Timestamp getLastUpdated() { 
-    return lastUpdated; 
-    }
+    public float getQuantity() { return quantity; }
+    public void setQuantity(float quantity) { this.quantity = quantity; }
 
-    
-    public PortfolioHolding() {
-    }
+    public BigDecimal getMarketValue() { return marketValue; }
+    public void setMarketValue(BigDecimal marketValue) { this.marketValue = marketValue; }
 
-    public PortfolioHolding(UserPortfolio portfolio, Stock stock,Double quantity, BigDecimal marketValue) {
-        this.portfolio = portfolio;
-        this.stock = stock;
-        this.quantity = quantity;
-        this.marketValue = marketValue;
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void updateTime() {
-        lastUpdated = new Timestamp(System.currentTimeMillis());
-    }
+    public LocalDateTime getLastUpdated() { return lastUpdated; }
+    public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; }
 }
