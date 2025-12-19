@@ -11,3 +11,4 @@ public class DemoApplication {
     }
 
 }
+mvn spring-boot:run
