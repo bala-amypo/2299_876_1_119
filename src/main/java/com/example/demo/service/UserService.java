@@ -1,8 +1,8 @@
+// UserService.java
 package com.example.demo.service;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,21 +10,19 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    // Save a new user
-    public User saveUser(User user) {
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    // Create/Register a new user
+    public User register(User user) {
         return userRepository.save(user);
     }
 
-    // Find user by email
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    // Get all users
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    // Find user by username (for login)
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
