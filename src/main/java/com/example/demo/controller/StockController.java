@@ -1,3 +1,12 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.Stock;
+import com.example.demo.service.StockService;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/stocks")
 public class StockController {
@@ -28,7 +37,6 @@ public class StockController {
         return stockService.getAllStocks();
     }
 
-    // ✅ DELETE /api/stocks/{id}
     @DeleteMapping("/{id}")
     public void deleteStock(@PathVariable Long id) {
         stockService.deleteStock(id);

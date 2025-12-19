@@ -1,3 +1,12 @@
+package com.example.demo.service;
+
+import com.example.demo.model.Stock;
+import com.example.demo.repository.StockRepository;
+
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class StockService {
 
@@ -29,7 +38,6 @@ public class StockService {
         return stockRepository.save(stock);
     }
 
-    // ✅ HARD DELETE
     public void deleteStock(Long id) {
         stockRepository.deleteById(id);
     }
