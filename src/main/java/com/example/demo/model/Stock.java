@@ -18,18 +18,39 @@ public class Stock {
     private boolean active = true;
 
     // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+         return id; 
+         }
+    public void setId(Long id) {
+     this.id = id; 
+     }
 
-    public String getTicker() { return ticker; }
-    public void setTicker(String ticker) { this.ticker = ticker; }
+    public String getTicker() { 
+    return ticker; 
+    }
+    public void setTicker(String ticker) { 
+    this.ticker = ticker; 
+    }
 
-    public String getCompanyName() { return companyName; }
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
+    public String getCompanyName() {
+         return companyName;
+          }
+    public void setCompanyName(String companyName) {
+         this.companyName = companyName;
+          }
 
-    public String getSector() { return sector; }
-    public void setSector(String sector) { this.sector = sector; }
+    public String getSector() { 
+        return sector; 
+        }
+    public void setSector(String sector) { 
+        this.sector = sector; 
+        }
 
-    public boolean isActive() { return active; }
-    public void setActive(boolean active) { this.active = active; }
+    public boolean isActive() { 
+        return active; 
+        }
+    public void setActive(boolean active) {
+         this.active = active;
+         
+          }
 }
