@@ -17,7 +17,7 @@ public class Stock {
 
     private boolean active = true;
 
-    // getters & setters
+    // getters & setters 
     public Long getId() {
          return id; 
          }
