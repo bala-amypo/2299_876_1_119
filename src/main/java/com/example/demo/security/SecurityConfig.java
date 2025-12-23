@@ -17,17 +17,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for testing
+            .csrf(csrf -> csrf.disable()) // Disable CSRF
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/v3/api-docs/**",     // Swagger JSON
-                    "/swagger-ui/**",       // Swagger UI
-                    "/swagger-ui.html",     // Swagger fallback
-                    "/auth/**"              // Allow login/register
-                ).permitAll()
-                .anyRequest().authenticated() // All other endpoints require authentication
+                    "/v3/api-docs/**",  // Swagger JSON
+                    "/swagger-ui/**",    // Swagger UI
+                    "/swagger-ui.html",  // fallback
+                    "/auth/**"           // your login/register
+                ).permitAll()           // allow public access
+                .anyRequest().authenticated() // everything else needs auth
             )
-            .httpBasic(); // or use .formLogin() if you want form login
+            .formLogin(form -> form.disable())   // Disable default login page
+            .httpBasic(httpBasic -> httpBasic.disable()); // Disable browser popup
+
         return http.build();
     }
 }
