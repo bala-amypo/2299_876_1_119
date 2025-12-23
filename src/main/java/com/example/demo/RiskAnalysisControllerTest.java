@@ -45,3 +45,6 @@ public class RiskAnalysisControllerTest {
         assertEquals(5, response.getBody().get(0).getRiskScore());
     }
 }
+
+
+mvn -Dtest=com.example.demo.RiskAnalysisControllerTest test
