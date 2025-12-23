@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>demo</name>
-    <description>Demo Spring Boot project with JUnit 5 & Mockito</description>
+    <description>Demo Spring Boot project with JUnit 5 &amp; Mockito</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -101,3 +101,4 @@
         </plugins>
     </build>
 </project>
+
