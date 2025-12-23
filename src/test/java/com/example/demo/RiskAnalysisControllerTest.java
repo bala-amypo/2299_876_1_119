@@ -2,51 +2,45 @@ package com.example.demo;
 
 import com.example.demo.controller.RiskAnalysisController;
 import com.example.demo.model.RiskAnalysisResult;
+import com.example.demo.repository.UserPortfolioRepository;
 import com.example.demo.service.RiskAnalysisService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-public class RiskAnalysisControllerTest {
+@ExtendWith(MockitoExtension.class)
+class RiskAnalysisControllerTest {
 
     @Mock
-    private RiskAnalysisService riskAnalysisService;
+    private RiskAnalysisService service;
+
+    @Mock
+    private UserPortfolioRepository portfolioRepository;
 
     @InjectMocks
-    private RiskAnalysisController riskAnalysisController;
-
-    public RiskAnalysisControllerTest() {
-        MockitoAnnotations.openMocks(this);
-    }
+    private RiskAnalysisController controller;
 
     @Test
-    public void testGetRiskAnalysis() {
+    void testGetAnalysis() {
+        Long portfolioId = 1L;
+
         RiskAnalysisResult result = new RiskAnalysisResult();
-        result.setId(1L);
         result.setRiskScore(5);
-        result.setAnalysisDate(LocalDate.now());
 
-        when(riskAnalysisService.getRiskAnalysis(1L)).thenReturn(Collections.singletonList(result));
+        when(service.getAnalysisByPortfolio(portfolioId))
+                .thenReturn(List.of(result));
 
-        ResponseEntity<List<RiskAnalysisResult>> response = riskAnalysisController.getRiskAnalysis(1L);
+        List<RiskAnalysisResult> response =
+                controller.getAnalysis(portfolioId);
 
-        assertEquals(1, response.getBody().size());
-        assertEquals(5, response.getBody().get(0).getRiskScore());
+        assertEquals(1, response.size());
+        assertEquals(5, response.get(0).getRiskScore());
     }
 }
-
-
-
-
-
