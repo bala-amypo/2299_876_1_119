@@ -37,3 +37,42 @@
 //         return repository.findByPortfolioId(portfolioId);
 //     }
 // }
+
+
+
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.RiskAnalysisResult;
+import com.example.demo.model.UserPortfolio;
+import com.example.demo.repository.RiskAnalysisRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Service
+public class RiskAnalysisService {
+
+    @Autowired
+    private RiskAnalysisRepository repository;
+
+    public RiskAnalysisResult runRiskAnalysis(UserPortfolio portfolio) {
+        // Simple mock logic for riskScore
+        int riskScore = (int)(Math.random() * 100);
+
+        RiskAnalysisResult result = new RiskAnalysisResult();
+        result.setPortfolio(portfolio);
+        result.setAnalysisDate(LocalDate.now());
+        result.setRiskScore(riskScore);
+        result.setNotes("Risk analysis performed");
+
+        return repository.save(result);
+    }
+
+    public List<RiskAnalysisResult> getAnalysisByPortfolio(Long portfolioId) {
+        return repository.findByPortfolioId(portfolioId);
+    }
+}
