@@ -98,6 +98,3 @@
     </build>
 
 </project>
-rm src/main/java/com/example/demo/RiskAnalysisControllerTest.java
-mvn clean
-mvn test
