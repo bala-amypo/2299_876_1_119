@@ -41,3 +41,39 @@
 //                 .orElseThrow(() -> new RuntimeException("Risk threshold not found"));
 //     }
 // }
+
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.RiskThreshold;
+import com.example.demo.model.UserPortfolio;
+import com.example.demo.repository.RiskThresholdRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class RiskThresholdService {
+
+    private final RiskThresholdRepository riskThresholdRepository;
+
+    public RiskThresholdService(RiskThresholdRepository riskThresholdRepository) {
+        this.riskThresholdRepository = riskThresholdRepository;
+    }
+
+    public RiskThreshold createOrUpdateThreshold(UserPortfolio portfolio, double minRisk, double maxRisk) {
+        Optional<RiskThreshold> existing = riskThresholdRepository.findByPortfolio(portfolio);
+
+        RiskThreshold threshold = existing.orElse(new RiskThreshold());
+        threshold.setPortfolio(portfolio);
+        threshold.setMinRisk(minRisk);
+        threshold.setMaxRisk(maxRisk);
+
+        return riskThresholdRepository.save(threshold);
+    }
+
+    public Optional<RiskThreshold> getThreshold(UserPortfolio portfolio) {
+        return riskThresholdRepository.findByPortfolio(portfolio);
+    }
+}
