@@ -42,3 +42,36 @@
 //         return portfolioRepository.findByUserId(userId);
 //     }
 // }
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.UserPortfolio;
+import com.example.demo.repository.UserPortfolioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserPortfolioService {
+
+    @Autowired
+    private UserPortfolioRepository repository;
+
+    // Create a new portfolio
+    public UserPortfolio createPortfolio(UserPortfolio portfolio) {
+        return repository.save(portfolio);
+    }
+
+    // Get portfolio by ID
+    public Optional<UserPortfolio> getPortfolioById(Long id) {
+        return repository.findById(id);
+    }
+
+    // Get portfolios by user ID
+    public List<UserPortfolio> getPortfoliosByUserId(Long userId) {
+        return repository.findByUserId(userId);
+    }
+}
