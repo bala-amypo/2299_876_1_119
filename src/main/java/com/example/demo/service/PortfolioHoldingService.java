@@ -43,3 +43,34 @@
 //         return holdingRepository.findByPortfolioId(portfolioId);
 //     }
 // }
+
+
+package com.example.demo.service;
+
+import com.example.demo.model.PortfolioHolding;
+import com.example.demo.model.Stock;
+import com.example.demo.model.UserPortfolio;
+import com.example.demo.repository.PortfolioHoldingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PortfolioHoldingService {
+
+    @Autowired
+    private PortfolioHoldingRepository repository;
+
+    public PortfolioHolding addHolding(UserPortfolio portfolio, Stock stock, int quantity) {
+        PortfolioHolding holding = new PortfolioHolding();
+        holding.setPortfolio(portfolio);
+        holding.setStock(stock);
+        holding.setQuantity(quantity);
+        return repository.save(holding);
+    }
+
+    public List<PortfolioHolding> getHoldingsByPortfolio(Long portfolioId) {
+        return repository.findByPortfolioId(portfolioId);
+    }
+}
