@@ -48,4 +48,5 @@ public class RiskAnalysisControllerTest {
 
 
 
-mkdir -p src/test/java/com/example/demo
+
+
