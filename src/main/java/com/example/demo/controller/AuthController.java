@@ -53,12 +53,12 @@
 
 
 
-
 package com.example.demo.controller;
 
-import com.example.demo.model.AuthResponse;
 import com.example.demo.model.LoginRequest;
+import com.example.demo.model.AuthResponse;
 import com.example.demo.model.User;
+import com.example.demo.security.JwtUtil;
 import com.example.demo.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -70,15 +70,13 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return authService.register(user);
-    }
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody LoginRequest request) {
-        String token = authService.login(request.getUsername(), request.getPassword());
-        User user = authService.register(request); // optional: fetch user info
-        return new AuthResponse(token, request.getUsername(), user.getRole());
+    public AuthResponse login(@RequestBody LoginRequest loginRequest) {
+        User user = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        String token = jwtUtil.generateToken(user.getUsername());
+        return new AuthResponse(token, user.getUsername());
     }
 }
