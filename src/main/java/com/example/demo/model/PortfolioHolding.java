@@ -34,6 +34,8 @@
 // }
 
 
+
+
 package com.example.demo.model;
 
 import jakarta.persistence.*;
@@ -46,11 +48,11 @@ public class PortfolioHolding {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private UserPortfolio portfolio;
 
     @ManyToOne
-    @JoinColumn(name = "stock_id")
+    @JoinColumn(name = "stock_id", nullable = false)
     private Stock stock;
 
     private int quantity;
