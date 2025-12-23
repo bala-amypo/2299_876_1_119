@@ -30,55 +30,36 @@
 
 
 
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import jakarta.persistence.*;
+import com.example.demo.model.RiskAnalysisResult;
+import com.example.demo.model.UserPortfolio;
+import com.example.demo.repository.UserPortfolioRepository;
+import com.example.demo.service.RiskAnalysisService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-public class RiskAnalysisResult {
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@RestController
+@RequestMapping("/api/risk-analysis")
+public class RiskAnalysisController {
 
-    @ManyToOne
-    @JoinColumn(name = "portfolio_id")
-    private UserPortfolio portfolio;
+    @Autowired
+    private RiskAnalysisService service;
 
-    private double calculatedRisk;
+    @Autowired
+    private UserPortfolioRepository portfolioRepository;
 
-    private String analysisSummary;
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    @PostMapping("/{portfolioId}")
+    public RiskAnalysisResult runAnalysis(@PathVariable Long portfolioId) {
+        UserPortfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new RuntimeException("Portfolio not found"));
+        return service.runRiskAnalysis(portfolio);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UserPortfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(UserPortfolio portfolio) {
-        this.portfolio = portfolio;
-    }
-
-    public double getCalculatedRisk() {
-        return calculatedRisk;
-    }
-
-    public void setCalculatedRisk(double calculatedRisk) {
-        this.calculatedRisk = calculatedRisk;
-    }
-
-    public String getAnalysisSummary() {
-        return analysisSummary;
-    }
-
-    public void setAnalysisSummary(String analysisSummary) {
-        this.analysisSummary = analysisSummary;
+    @GetMapping("/{portfolioId}")
+    public List<RiskAnalysisResult> getAnalysis(@PathVariable Long portfolioId) {
+        return service.getAnalysisByPortfolio(portfolioId);
     }
 }

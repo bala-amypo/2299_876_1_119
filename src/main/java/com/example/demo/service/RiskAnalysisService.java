@@ -46,7 +46,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.RiskAnalysisResult;
 import com.example.demo.model.UserPortfolio;
-import com.example.demo.repository.RiskAnalysisRepository;
+import com.example.demo.repository.RiskAnalysisResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,18 +57,14 @@ import java.util.List;
 public class RiskAnalysisService {
 
     @Autowired
-    private RiskAnalysisRepository repository;
+    private RiskAnalysisResultRepository repository;
 
     public RiskAnalysisResult runRiskAnalysis(UserPortfolio portfolio) {
-        // Simple mock logic for riskScore
-        int riskScore = (int)(Math.random() * 100);
-
         RiskAnalysisResult result = new RiskAnalysisResult();
         result.setPortfolio(portfolio);
         result.setAnalysisDate(LocalDate.now());
-        result.setRiskScore(riskScore);
-        result.setNotes("Risk analysis performed");
-
+        result.setRiskScore(50); // Example calculation
+        result.setNotes("Analysis complete");
         return repository.save(result);
     }
 
