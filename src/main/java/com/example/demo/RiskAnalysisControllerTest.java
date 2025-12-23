@@ -47,4 +47,5 @@ public class RiskAnalysisControllerTest {
 }
 
 
-mvn -Dtest=com.example.demo.RiskAnalysisControllerTest test
+
+mkdir -p src/test/java/com/example/demo
