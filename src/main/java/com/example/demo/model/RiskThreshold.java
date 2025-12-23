@@ -1,35 +1,35 @@
-package com.example.demo.model;
+// package com.example.demo.model;
 
-import jakarta.persistence.*;
+// import jakarta.persistence.*;
 
-@Entity
-public class RiskThreshold {
+// @Entity
+// public class RiskThreshold {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "portfolio_id", unique = true)
-    private UserPortfolio portfolio;
+//     @OneToOne
+//     @JoinColumn(name = "portfolio_id", unique = true)
+//     private UserPortfolio portfolio;
 
-    private double maxLossPercentage;
-    private double maxExposurePercentage;
+//     private double maxLossPercentage;
+//     private double maxExposurePercentage;
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+//     // getters & setters
+//     public Long getId() { return id; }
+//     public void setId(Long id) { this.id = id; }
 
-    public UserPortfolio getPortfolio() { return portfolio; }
-    public void setPortfolio(UserPortfolio portfolio) { this.portfolio = portfolio; }
+//     public UserPortfolio getPortfolio() { return portfolio; }
+//     public void setPortfolio(UserPortfolio portfolio) { this.portfolio = portfolio; }
 
-    public double getMaxLossPercentage() { return maxLossPercentage; }
-    public void setMaxLossPercentage(double maxLossPercentage) {
-        this.maxLossPercentage = maxLossPercentage;
-    }
+//     public double getMaxLossPercentage() { return maxLossPercentage; }
+//     public void setMaxLossPercentage(double maxLossPercentage) {
+//         this.maxLossPercentage = maxLossPercentage;
+//     }
 
-    public double getMaxExposurePercentage() { return maxExposurePercentage; }
-    public void setMaxExposurePercentage(double maxExposurePercentage) {
-        this.maxExposurePercentage = maxExposurePercentage;
-    }
-}
+//     public double getMaxExposurePercentage() { return maxExposurePercentage; }
+//     public void setMaxExposurePercentage(double maxExposurePercentage) {
+//         this.maxExposurePercentage = maxExposurePercentage;
+//     }
+// }
