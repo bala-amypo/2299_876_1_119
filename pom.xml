@@ -134,4 +134,7 @@
 
 
 
-mkdir -p src/test/java/com/example/demo
+
+
+
+vi src/test/java/com/example/demo/DemoApplicationTests.java
