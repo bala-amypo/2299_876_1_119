@@ -136,4 +136,6 @@
 
 
 
-
+sudo chown -R coder:coder src/test
+rm -rf src/test
+mkdir -p src/test/java/com/example/demo
