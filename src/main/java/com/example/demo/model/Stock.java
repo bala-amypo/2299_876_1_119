@@ -12,22 +12,49 @@ public class Stock {
     private String ticker;
     private String companyName;
     private String sector;
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     public Stock() {}
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // getters & setters
+    public Long getId() {
+        return id;
+    }
 
-    public String getTicker() { return ticker; }
-    public void setTicker(String ticker) { this.ticker = ticker; }
+    public String getTicker() {
+        return ticker;
+    }
 
-    public String getCompanyName() { return companyName; }
-    public void setCompanyName(String companyName) { this.companyName = companyName; }
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
+    }
 
-    public String getSector() { return sector; }
-    public void setSector(String sector) { this.sector = sector; }
+    public String getCompanyName() {
+        return companyName;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean active) { isActive = active; }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    // IMPORTANT: service calls setActive()
+    public void setActive(Boolean active) {
+        this.isActive = active;
+    }
 }
