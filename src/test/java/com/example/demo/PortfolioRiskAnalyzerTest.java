@@ -6,18 +6,16 @@ import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class PortfolioRiskAnalyzerTest {
 
-    @MockBean
+    @Autowired
     private UserService userService;
 
-    @MockBean
+    @Autowired
     private PortfolioService portfolioService;
 
     @Autowired
@@ -26,7 +24,6 @@ public class PortfolioRiskAnalyzerTest {
     // ✅ Example test 1
     @Test
     void userServiceTest() {
-        when(userService.getUserById(1L)).thenReturn("MockUser");
         String user = userService.getUserById(1L);
         assertEquals("MockUser", user);
     }
@@ -34,7 +31,6 @@ public class PortfolioRiskAnalyzerTest {
     // ✅ Example test 2
     @Test
     void portfolioRiskTest() {
-        when(portfolioService.calculateRisk()).thenReturn(50);
         assertEquals(50, portfolioService.calculateRisk());
     }
 
@@ -44,7 +40,7 @@ public class PortfolioRiskAnalyzerTest {
         assertEquals("Safe", riskAnalysisService.analyze());
     }
 
-    // ✅ Add placeholder tests up to 60
+    // ✅ Placeholder tests 4-60
     @Test void test4() { assertTrue(true); }
     @Test void test5() { assertTrue(true); }
     @Test void test6() { assertTrue(true); }
