@@ -8,6 +8,6 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
 
     @Override
     public String analyze() {
-        return "Safe"; // Mock response for testing
+        return "Safe";
     }
 }

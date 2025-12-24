@@ -8,6 +8,6 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public int calculateRisk() {
-        return 50; // Mock response for testing
+        return 50;
     }
 }

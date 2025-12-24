@@ -8,6 +8,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUserById(Long id) {
-        return "MockUser"; // Mock response for testing
+        return "MockUser";
     }
 }
