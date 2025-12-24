@@ -86,3 +86,5 @@ public class RiskAnalysisService {
         return "Safe"; // mock analysis
     }
 }
+
+mkdir -p src/test/java/com/example/demo && touch src/test/java/com/example/demo/PortfolioRiskAnalyzerTest.java
