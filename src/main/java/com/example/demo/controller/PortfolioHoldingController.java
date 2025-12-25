@@ -1,47 +1,50 @@
-
-
-
 package com.example.demo.controller;
 
 import com.example.demo.model.PortfolioHolding;
-import com.example.demo.model.Stock;
-import com.example.demo.model.UserPortfolio;
-import com.example.demo.repository.StockRepository;
-import com.example.demo.repository.UserPortfolioRepository;
 import com.example.demo.service.PortfolioHoldingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/holdings")
+@Tag(name = "Portfolio Holdings")
 public class PortfolioHoldingController {
 
-    @Autowired
-    private PortfolioHoldingService service;
+    private final PortfolioHoldingService service;
 
-    @Autowired
-    private UserPortfolioRepository portfolioRepository;
+    public PortfolioHoldingController(PortfolioHoldingService service) {
+        this.service = service;
+    }
 
-    @Autowired
-    private StockRepository stockRepository;
+    @PostMapping
+    public ResponseEntity<PortfolioHolding> createHolding(@RequestBody PortfolioHolding holding) {
+        return ResponseEntity.ok(service.createHolding(holding));
+    }
 
-    @PostMapping("/{portfolioId}/{stockId}")
-    public PortfolioHolding addHolding(
-            @PathVariable Long portfolioId,
-            @PathVariable Long stockId,
-            @RequestParam int quantity
-    ) {
-        UserPortfolio portfolio = portfolioRepository.findById(portfolioId)
-                .orElseThrow(() -> new RuntimeException("Portfolio not found"));
-        Stock stock = stockRepository.findById(stockId)
-                .orElseThrow(() -> new RuntimeException("Stock not found"));
-        return service.addHolding(portfolio, stock, quantity);
+    @PutMapping("/{id}")
+    public ResponseEntity<PortfolioHolding> updateHolding(
+            @PathVariable Long id,
+            @RequestBody PortfolioHolding holding) {
+        return ResponseEntity.ok(service.updateHolding(id, holding));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PortfolioHolding> getHolding(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getHoldingById(id));
     }
 
     @GetMapping("/portfolio/{portfolioId}")
-    public List<PortfolioHolding> getHoldings(@PathVariable Long portfolioId) {
-        return service.getHoldingsByPortfolio(portfolioId);
+    public ResponseEntity<List<PortfolioHolding>> getHoldingsByPortfolio(
+            @PathVariable Long portfolioId) {
+        return ResponseEntity.ok(service.getHoldingsByPortfolio(portfolioId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHolding(@PathVariable Long id) {
+        service.deleteHolding(id);
+        return ResponseEntity.ok().build();
     }
 }

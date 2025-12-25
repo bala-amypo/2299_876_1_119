@@ -1,54 +1,48 @@
-
-
 package com.example.demo.controller;
 
 import com.example.demo.model.RiskThreshold;
-import com.example.demo.model.UserPortfolio;
-import com.example.demo.repository.UserPortfolioRepository;
 import com.example.demo.service.RiskThresholdService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/risk-thresholds")
+@Tag(name = "Risk Thresholds")
 public class RiskThresholdController {
 
-    private final RiskThresholdService riskThresholdService;
-    private final UserPortfolioRepository userPortfolioRepository;
+    private final RiskThresholdService service;
 
-    public RiskThresholdController(RiskThresholdService riskThresholdService,
-                                   UserPortfolioRepository userPortfolioRepository) {
-        this.riskThresholdService = riskThresholdService;
-        this.userPortfolioRepository = userPortfolioRepository;
+    public RiskThresholdController(RiskThresholdService service) {
+        this.service = service;
     }
 
-    @PostMapping("/{portfolioId}")
-    public ResponseEntity<RiskThreshold> createOrUpdateThreshold(
-            @PathVariable Long portfolioId,
-            @RequestParam double minRisk,
-            @RequestParam double maxRisk) {
-
-        Optional<UserPortfolio> portfolioOpt = userPortfolioRepository.findById(portfolioId);
-        if (portfolioOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        RiskThreshold threshold = riskThresholdService.createOrUpdateThreshold(
-                portfolioOpt.get(), minRisk, maxRisk);
-
-        return ResponseEntity.ok(threshold);
+    @PostMapping
+    public ResponseEntity<RiskThreshold> createThreshold(@RequestBody RiskThreshold threshold) {
+        return ResponseEntity.ok(service.createThreshold(threshold));
     }
 
-    @GetMapping("/{portfolioId}")
-    public ResponseEntity<RiskThreshold> getThreshold(@PathVariable Long portfolioId) {
-        Optional<UserPortfolio> portfolioOpt = userPortfolioRepository.findById(portfolioId);
-        if (portfolioOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<RiskThreshold> updateThreshold(
+            @PathVariable Long id,
+            @RequestBody RiskThreshold threshold) {
+        return ResponseEntity.ok(service.updateThreshold(id, threshold));
+    }
 
-        Optional<RiskThreshold> thresholdOpt = riskThresholdService.getThreshold(portfolioOpt.get());
-        return thresholdOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/active")
+    public ResponseEntity<RiskThreshold> getActiveThreshold() {
+        return ResponseEntity.ok(service.getActiveThreshold());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RiskThreshold> getThreshold(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getThresholdById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RiskThreshold>> getAllThresholds() {
+        return ResponseEntity.ok(service.getAllThresholds());
     }
 }

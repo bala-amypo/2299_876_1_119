@@ -1,35 +1,37 @@
-
-
 package com.example.demo.controller;
 
 import com.example.demo.model.RiskAnalysisResult;
-import com.example.demo.model.UserPortfolio;
-import com.example.demo.repository.UserPortfolioRepository;
 import com.example.demo.service.RiskAnalysisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/risk-analysis")
+@Tag(name = "Risk Analysis")
 public class RiskAnalysisController {
 
-    @Autowired
-    private RiskAnalysisService service;
+    private final RiskAnalysisService service;
 
-    @Autowired
-    private UserPortfolioRepository portfolioRepository;
-
-    @PostMapping("/{portfolioId}")
-    public RiskAnalysisResult runAnalysis(@PathVariable Long portfolioId) {
-        UserPortfolio portfolio = portfolioRepository.findById(portfolioId)
-                .orElseThrow(() -> new RuntimeException("Portfolio not found"));
-        return service.runRiskAnalysis(portfolio);
+    public RiskAnalysisController(RiskAnalysisService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{portfolioId}")
-    public List<RiskAnalysisResult> getAnalysis(@PathVariable Long portfolioId) {
-        return service.getAnalysisByPortfolio(portfolioId);
+    @PostMapping("/analyze/{portfolioId}")
+    public ResponseEntity<RiskAnalysisResult> analyze(@PathVariable Long portfolioId) {
+        return ResponseEntity.ok(service.analyzePortfolio(portfolioId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RiskAnalysisResult> getAnalysis(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getAnalysisById(id));
+    }
+
+    @GetMapping("/portfolio/{portfolioId}")
+    public ResponseEntity<List<RiskAnalysisResult>> getAnalysesForPortfolio(
+            @PathVariable Long portfolioId) {
+        return ResponseEntity.ok(service.getAnalysesForPortfolio(portfolioId));
     }
 }
