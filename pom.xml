@@ -135,20 +135,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- TestNG Surefire -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>
-                            src/test/resources/testng.xml
-                        </suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-maven-plugin</artifactId>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>3.0.0</version>
+<dependencies>
+<dependency>
+<groupId>org.apache.maven.surefire</groupId>
+<artifactId>surefire-testng</artifactId>
+<version>3.0.0</version>
+</dependency>
+</dependencies>
+</plugin>
 
         </plugins>
     </build>
