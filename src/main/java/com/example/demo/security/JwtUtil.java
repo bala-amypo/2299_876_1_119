@@ -13,10 +13,11 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
+    // Must be at least 256 bits
     private static final String SECRET =
-            "mysecretkeymysecretkeymysecretkeymysecretkey"; // min 256-bit
+            "mysecretkeymysecretkeymysecretkeymysecretkey";
 
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60;
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
@@ -33,13 +34,15 @@ public class JwtUtil {
                         "userId", userId
                 ))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(
+                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
+                )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     /* =========================
-       CLAIM EXTRACTION
+       INTERNAL CLAIM EXTRACTION
        ========================= */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
@@ -50,20 +53,23 @@ public class JwtUtil {
     }
 
     /* =========================
-       METHODS REQUIRED BY TESTS
+       REQUIRED BY TEST CASES
        ========================= */
 
-    // TEST EXPECTS THIS
+    // Used by TestNG tests
     public String extractEmail(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    // TEST EXPECTS THIS
+    // Used by JwtAuthenticationFilter
+    public String extractUsername(String token) {
+        return extractEmail(token); // username == email
+    }
+
     public String extractRole(String token) {
         return extractAllClaims(token).get("role", String.class);
     }
 
-    // TEST EXPECTS THIS
     public Long extractUserId(String token) {
         return extractAllClaims(token).get("userId", Long.class);
     }
