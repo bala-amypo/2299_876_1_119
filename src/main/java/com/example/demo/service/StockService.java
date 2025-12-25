@@ -17,8 +17,24 @@ public class StockService {
         return stock;
     }
 
-    public List<Stock> getAllStocks() {
-        return stocks;
+    public Stock updateStock(Long id, Stock updatedStock) {
+        Stock stock = getStockById(id);
+        if (stock != null) {
+            stock.setName(updatedStock.getName());
+            // add other fields if needed
+        }
+        return stock;
+    }
+
+    public void deactivateStock(Long id) {
+        Stock stock = getStockById(id);
+        if (stock != null) {
+            stock.setActive(false);
+        }
+    }
+
+    public void deleteStock(Long id) {
+        stocks.removeIf(s -> s.getId().equals(id));
     }
 
     public Stock getStockById(Long id) {
