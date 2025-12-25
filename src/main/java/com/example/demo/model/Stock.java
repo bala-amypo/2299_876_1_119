@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.math.BigDecimal;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Stock {
@@ -10,16 +13,14 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String ticker;
-    private String companyName; // actual field
+
+    private String companyName;
+
     private String sector;
-    private BigDecimal price;
-    private boolean active;
 
-    // Default constructor
-    public Stock() {}
-
-    // Getters and Setters
+    private Boolean active = true;
 
     public Long getId() {
         return id;
@@ -35,15 +36,6 @@ public class Stock {
 
     public void setTicker(String ticker) {
         this.ticker = ticker;
-    }
-
-    // This maps to your tests expecting getName/setName
-    public String getName() {
-        return companyName;
-    }
-
-    public void setName(String name) {
-        this.companyName = name;
     }
 
     public String getCompanyName() {
@@ -62,19 +54,11 @@ public class Stock {
         this.sector = sector;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 }
