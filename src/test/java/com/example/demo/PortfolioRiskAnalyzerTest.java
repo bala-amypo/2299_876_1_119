@@ -520,3 +520,4 @@ public class PortfolioRiskAnalyzerTest {
         Assert.assertTrue(tickers.contains("AAPL"), "HCQL join must include stock-ticker from portfolio holdings");
     }
 }
+
