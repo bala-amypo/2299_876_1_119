@@ -1,8 +1,11 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="PortfolioRiskAnalyzerSuite">
-    <test name="PortfolioRiskAnalyzerTest">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="PortfolioRiskAnalyzerSuite" verbose="1" parallel="false">
+
+    <test name="PortfolioRiskAnalyzerTests">
         <classes>
             <class name="com.example.demo.PortfolioRiskAnalyzerTest"/>
         </classes>
     </test>
+
 </suite>
