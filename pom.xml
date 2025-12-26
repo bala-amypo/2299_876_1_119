@@ -161,3 +161,4 @@
     </build>
 
 </project>
+rm -rf ~/.m2/repository/mysql/mysql-connector-j
