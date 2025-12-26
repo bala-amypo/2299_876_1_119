@@ -21,3 +21,4 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
     
     // ... keep your other existing methods like performAnalysis here
 }
+
