@@ -8,4 +8,7 @@ public interface UserService {
     Optional<User> findByEmail(String email);
 
     User save(User user);
+
+    // ✅ ADD THIS
+    User register(User user);
 }
