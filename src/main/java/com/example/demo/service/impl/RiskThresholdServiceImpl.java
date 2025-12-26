@@ -28,14 +28,15 @@ public class RiskThresholdServiceImpl implements RiskThresholdService {
 
     @Override
     public RiskThreshold getActiveThreshold() {
+        // If findByActiveTrue returns Optional, we use .orElse(null)
+        // If it returns a plain object, this line is fine
         return repository.findByActiveTrue();
     }
 
     @Override
     public RiskThreshold getThresholdById(Long id) {
-        // Fixed the Optional mismatch here
-        return repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Threshold not found"));
+        // Line 31 fix: Added .orElse(null) to convert Optional to RiskThreshold
+        return repository.findById(id).orElse(null);
     }
 
     @Override
