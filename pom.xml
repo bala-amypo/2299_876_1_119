@@ -91,6 +91,22 @@
             <version>7.8.0</version>
             <scope>test</scope>
         </dependency>
+        <plugin>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-maven-plugin</artifactId>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>3.0.0</version>
+<dependencies>
+<dependency>
+<groupId>org.apache.maven.surefire</groupId>
+<artifactId>surefire-testng</artifactId>
+<version>3.0.0</version>
+</dependency>
+</dependencies>
+</plugin>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
