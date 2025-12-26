@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI openAPI() {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Demo API")
+                        .title("Portfolio Risk Analyzer API")
                         .version("1.0")
-                        .description("Swagger UI"));
+                        .description("API documentation for Portfolio Risk Analyzer"));
     }
 }
