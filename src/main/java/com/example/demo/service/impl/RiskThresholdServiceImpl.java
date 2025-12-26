@@ -3,30 +3,27 @@ package com.example.demo.service.impl;
 import com.example.demo.model.RiskThreshold;
 import com.example.demo.repository.RiskThresholdRepository;
 import com.example.demo.service.RiskThresholdService;
-
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class RiskThresholdServiceImpl implements RiskThresholdService {
 
     private final RiskThresholdRepository repository;
 
-    // ✅ exact constructor
     public RiskThresholdServiceImpl(RiskThresholdRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public RiskThreshold createThreshold(RiskThreshold threshold) {
-        return threshold;
+        return repository.save(threshold);
     }
 
     @Override
     public RiskThreshold updateThreshold(Long id, RiskThreshold threshold) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
-        return threshold;
+        threshold.setId(id);
+        return repository.save(threshold);
     }
 
     @Override
@@ -36,14 +33,11 @@ public class RiskThresholdServiceImpl implements RiskThresholdService {
 
     @Override
     public RiskThreshold getThresholdById(Long id) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
-        return new RiskThreshold();
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @Override
     public List<RiskThreshold> getAllThresholds() {
-        return new ArrayList<>();
+        return repository.findAll();
     }
 }

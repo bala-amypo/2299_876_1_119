@@ -7,6 +7,7 @@ import com.example.demo.repository.StockRepository;
 import com.example.demo.service.PortfolioHoldingService;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
@@ -14,7 +15,6 @@ public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
     private final UserPortfolioRepository portfolioRepository;
     private final StockRepository stockRepository;
 
-    // Requirement: Must follow this exact constructor parameter order
     public PortfolioHoldingServiceImpl(PortfolioHoldingRepository holdingRepository, 
                                        UserPortfolioRepository portfolioRepository, 
                                        StockRepository stockRepository) {
@@ -36,5 +36,13 @@ public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
         return holdingRepository.findByPortfolioId(portfolioId);
     }
 
-    // Additional methods for update/delete/getById...
+    @Override
+    public void deleteHolding(Long id) {
+        holdingRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<PortfolioHolding> getHoldingById(Long id) {
+        return holdingRepository.findById(id);
+    }
 }
