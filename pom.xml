@@ -56,8 +56,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.0.32</version>
-            <scope>runtime</scope>
+            <version>8.0.33</version>
         </dependency>
 
         <!-- H2 Database (optional fallback) -->
@@ -109,7 +108,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Boot Test (JUnit excluded, TestNG used) -->
+        <!-- Spring Boot Test (JUnit excluded) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -144,7 +143,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Surefire for TestNG -->
+            <!-- Surefire TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
