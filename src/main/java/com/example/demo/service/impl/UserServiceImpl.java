@@ -4,6 +4,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,13 +16,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
-        return userRepository.save(user);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

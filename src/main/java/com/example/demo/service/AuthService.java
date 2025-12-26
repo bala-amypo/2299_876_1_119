@@ -19,7 +19,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid password");
+            throw new RuntimeException("Wrong password");
         }
 
         return user;
