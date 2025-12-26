@@ -3,9 +3,7 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +13,8 @@ public class JwtUtil {
     private final String secret;
     private final long validityInMs;
 
-    // Strict constructor requirement for testing
-    public JwtUtil(@Value("${jwt.secret:defaultSecretKey}") String secret, 
-                   @Value("${jwt.validity:3600000}") long validityInMs) {
+    // Requirement: Must have this specific constructor for the test suite
+    public JwtUtil(String secret, long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
     }
