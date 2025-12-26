@@ -3,6 +3,7 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value; // ADD THIS IMPORT
 import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,12 +14,13 @@ public class JwtUtil {
     private final String secret;
     private final long validityInMs;
 
-    public JwtUtil(String secret, long validityInMs) {
+    // Fix: Add @Value to tell Spring to read these from application.properties
+    public JwtUtil(@Value("${jwt.secret:mySecretKeyWithAtLeast256BitsForHS256Algorithm}") String secret, 
+                   @Value("${jwt.validity:3600000}") long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
     }
 
-    // Fix for the filter: extractUsername is an alias for extractEmail
     public String extractUsername(String token) {
         return extractEmail(token);
     }
