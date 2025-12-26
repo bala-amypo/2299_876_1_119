@@ -3,55 +3,47 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Stock;
 import com.example.demo.repository.StockRepository;
 import com.example.demo.service.StockService;
-
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class StockServiceImpl implements StockService {
-
     private final StockRepository stockRepository;
 
-    // ✅ EXACT constructor signature
     public StockServiceImpl(StockRepository stockRepository) {
         this.stockRepository = stockRepository;
     }
 
     @Override
     public Stock createStock(Stock stock) {
-        if (stockRepository.lindByTicker(stock.getTicker()) != null) {
+        if (stockRepository.findByTicker(stock.getTicker()).isPresent()) {
             throw new RuntimeException("Duplicate ticker");
         }
-        if (stock.getActive() == null) {
-            stock.setActive(true);
-        }
-        return stock;
+        return stockRepository.save(stock);
     }
 
     @Override
     public Stock updateStock(Long id, Stock stock) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
-        return stock;
+        if (!stockRepository.existsById(id)) throw new RuntimeException("Not found");
+        stock.setId(id);
+        return stockRepository.save(stock);
     }
 
     @Override
     public Stock getStockById(Long id) {
-        if (id == null || id <= 0) {
-            throw new RuntimeException("Not found");
-        }
-        return new Stock();
+        return stockRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @Override
     public List<Stock> getAllStocks() {
-        return new ArrayList<>();
+        return stockRepository.findAll();
     }
 
     @Override
     public void deactivateStock(Long id) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
+        Stock s = getStockById(id);
+        s.setActive(false);
+        stockRepository.save(s);
     }
 }

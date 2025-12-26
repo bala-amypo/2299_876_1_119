@@ -1,30 +1,25 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.RiskAnalysisResult;
-import com.example.demo.repository.PortfolioHoldingRepository;
-import com.example.demo.repository.RiskAnalysisResultRepository;
-import com.example.demo.repository.RiskThresholdRepository;
-import com.example.demo.repository.UserPortfolioRepository;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.service.RiskAnalysisService;
-
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
 import java.util.List;
 
+@Service
 public class RiskAnalysisServiceImpl implements RiskAnalysisService {
-
-    private final RiskAnalysisResultRepository resultRepository;
+    private final RiskAnalysisResultRepository analysisRepository;
     private final UserPortfolioRepository portfolioRepository;
     private final PortfolioHoldingRepository holdingRepository;
     private final RiskThresholdRepository thresholdRepository;
 
-    // ✅ EXACT constructor order (CRITICAL)
-    public RiskAnalysisServiceImpl(
-            RiskAnalysisResultRepository resultRepository,
-            UserPortfolioRepository portfolioRepository,
-            PortfolioHoldingRepository holdingRepository,
-            RiskThresholdRepository thresholdRepository
-    ) {
-        this.resultRepository = resultRepository;
+    // Requirement: Must follow this exact constructor parameter order
+    public RiskAnalysisServiceImpl(RiskAnalysisResultRepository analysisRepository,
+                                   UserPortfolioRepository portfolioRepository,
+                                   PortfolioHoldingRepository holdingRepository,
+                                   RiskThresholdRepository thresholdRepository) {
+        this.analysisRepository = analysisRepository;
         this.portfolioRepository = portfolioRepository;
         this.holdingRepository = holdingRepository;
         this.thresholdRepository = thresholdRepository;
@@ -32,21 +27,21 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
 
     @Override
     public RiskAnalysisResult analyzePortfolio(Long portfolioId) {
+        UserPortfolio portfolio = portfolioRepository.findById(portfolioId)
+                .orElseThrow(() -> new RuntimeException("Not found"));
+        
+        // Logical aggregation of holdings and threshold comparison goes here...
+        
         RiskAnalysisResult result = new RiskAnalysisResult();
-        result.setHighRisk(false);
-        return result;
-    }
-
-    @Override
-    public RiskAnalysisResult getAnalysisById(Long id) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
-        return new RiskAnalysisResult();
+        result.setPortfolio(portfolio);
+        result.setAnalysisDate(new Timestamp(System.currentTimeMillis()));
+        // result.setHighRisk(logicValue);
+        
+        return analysisRepository.save(result);
     }
 
     @Override
     public List<RiskAnalysisResult> getAnalysesForPortfolio(Long portfolioId) {
-        return new ArrayList<>();
+        return analysisRepository.findByPortfolioId(portfolioId);
     }
 }
