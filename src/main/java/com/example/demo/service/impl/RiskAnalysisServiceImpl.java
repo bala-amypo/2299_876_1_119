@@ -4,7 +4,7 @@ import com.example.demo.model.RiskAnalysisResult;
 import com.example.demo.repository.RiskAnalysisResultRepository;
 import com.example.demo.service.RiskAnalysisService;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class RiskAnalysisServiceImpl implements RiskAnalysisService {
@@ -15,10 +15,13 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
     }
 
     @Override
-    public Optional<RiskAnalysisResult> getAnalysisById(Long id) {
-        return analysisRepository.findById(id);
+    public RiskAnalysisResult getAnalysisById(Long id) {
+        return analysisRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Analysis not found"));
     }
-    
-    // ... keep your other existing methods like performAnalysis here
-}
 
+    @Override
+    public List<RiskAnalysisResult> getAnalysesForPortfolio(Long portfolioId) {
+        return analysisRepository.findByPortfolioId(portfolioId);
+    }
+}

@@ -33,7 +33,8 @@ public class RiskThresholdServiceImpl implements RiskThresholdService {
 
     @Override
     public RiskThreshold getThresholdById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+        return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Threshold not found"));
     }
 
     @Override

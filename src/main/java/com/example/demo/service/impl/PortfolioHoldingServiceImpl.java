@@ -7,7 +7,6 @@ import com.example.demo.repository.StockRepository;
 import com.example.demo.service.PortfolioHoldingService;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
@@ -42,7 +41,8 @@ public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
     }
 
     @Override
-    public Optional<PortfolioHolding> getHoldingById(Long id) {
-        return holdingRepository.findById(id);
+    public PortfolioHolding getHoldingById(Long id) {
+        return holdingRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Holding not found"));
     }
 }

@@ -13,10 +13,14 @@ public class JwtUtil {
     private final String secret;
     private final long validityInMs;
 
-    // Requirement: Must have this specific constructor for the test suite
     public JwtUtil(String secret, long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
+    }
+
+    // Fix for the filter: extractUsername is an alias for extractEmail
+    public String extractUsername(String token) {
+        return extractEmail(token);
     }
 
     public String generateToken(String email, String role, Long userId) {
