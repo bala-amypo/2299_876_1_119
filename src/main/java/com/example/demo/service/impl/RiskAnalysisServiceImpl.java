@@ -24,4 +24,12 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
     public List<RiskAnalysisResult> getAnalysesForPortfolio(Long portfolioId) {
         return analysisRepository.findByPortfolioId(portfolioId);
     }
+
+    @Override
+    public RiskAnalysisResult analyzePortfolio(Long portfolioId) {
+        // Basic implementation to satisfy interface
+        RiskAnalysisResult result = new RiskAnalysisResult();
+        // You would typically add calculation logic here
+        return result; 
+    }
 }

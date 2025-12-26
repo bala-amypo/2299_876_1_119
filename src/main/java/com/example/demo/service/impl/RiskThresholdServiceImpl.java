@@ -33,6 +33,7 @@ public class RiskThresholdServiceImpl implements RiskThresholdService {
 
     @Override
     public RiskThreshold getThresholdById(Long id) {
+        // Fixed the Optional mismatch here
         return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Threshold not found"));
     }

@@ -45,4 +45,10 @@ public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
         return holdingRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Holding not found"));
     }
+
+    @Override
+    public PortfolioHolding updateHolding(Long id, PortfolioHolding holding) {
+        holding.setId(id);
+        return holdingRepository.save(holding);
+    }
 }
