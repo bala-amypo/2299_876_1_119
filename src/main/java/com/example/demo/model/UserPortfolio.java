@@ -1,35 +1,30 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_portfolios")
-@Getter 
-@Setter 
-@NoArgsConstructor 
-@AllArgsConstructor
 public class UserPortfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long userid;
     private String portfolioName;
-    
     private Timestamp createdAt;
-    private Timestamp updatedAt;
     private Boolean active = true;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Timestamp(System.currentTimeMillis());
-        this.updatedAt = new Timestamp(System.currentTimeMillis());
-    }
+    public UserPortfolio() {}
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Long getUserid() { return userid; }
+    public void setUserid(Long userid) { this.userid = userid; }
+    public String getPortfolioName() { return portfolioName; }
+    public void setPortfolioName(String portfolioName) { this.portfolioName = portfolioName; }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = new Timestamp(System.currentTimeMillis());
-    }
-}
+    @PrePersist
+    protected void onCreate() { this.createdAt = new Timestamp(System.current
