@@ -14,10 +14,14 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
 
+
+
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
 
+     @Bean
+     public Password
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
