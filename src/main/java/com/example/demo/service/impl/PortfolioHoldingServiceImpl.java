@@ -11,31 +11,52 @@ import java.util.List;
 
 @Service
 public class PortfolioHoldingServiceImpl implements PortfolioHoldingService {
-    private final PortfolioHoldingRepository portfolioHoldingRepository;
-    private final UserPortfolioRepository userPortfolioRepository;
-    private final StockRepository stockRepository;
+    private final PortfolioHoldingRepository holdingRepo;
+    private final UserPortfolioRepository portfolioRepo;
+    private final StockRepository stockRepo;
 
-    // Exact constructor order: HoldingRepo, PortfolioRepo, StockRepo
-    public PortfolioHoldingServiceImpl(PortfolioHoldingRepository portfolioHoldingRepository,
-                                       UserPortfolioRepository userPortfolioRepository,
-                                       StockRepository stockRepository) {
-        this.portfolioHoldingRepository = portfolioHoldingRepository;
-        this.userPortfolioRepository = userPortfolioRepository;
-        this.stockRepository = stockRepository;
+    public PortfolioHoldingServiceImpl(PortfolioHoldingRepository holdingRepo, 
+                                       UserPortfolioRepository portfolioRepo, 
+                                       StockRepository stockRepo) {
+        this.holdingRepo = holdingRepo;
+        this.portfolioRepo = portfolioRepo;
+        this.stockRepo = stockRepo;
     }
 
     @Override
     public PortfolioHolding createHolding(PortfolioHolding holding) {
-        if (holding.getQuantity() <= 0) {
+        if (holding.getQuantity() == null || holding.getQuantity() <= 0) {
             throw new IllegalArgumentException("Quantity must be > 0");
         }
-        return portfolioHoldingRepository.save(holding);
+        return holdingRepo.save(holding);
     }
 
     @Override
-    public List<PortfolioHolding> getHoldingsByPortfolio(Long portfolioId) {
-        return portfolioHoldingRepository.findByPortfolioId(portfolioId);
+    public PortfolioHolding updateHolding(Long id, PortfolioHolding holding) {
+        PortfolioHolding existing = getHoldingById(id);
+        if (holding.getQuantity() <= 0) throw new IllegalArgumentException("Quantity must be > 0");
+        existing.setQuantity(holding.getQuantity());
+        existing.setMarketValue(holding.getMarketValue());
+        return holdingRepo.save(existing);
     }
-    
-    // ... Implement updateHolding, getHoldingById, deleteHolding
+
+    @Override
+    public PortfolioHolding getHoldingById(Long id) {
+        return holdingRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+    }
+
+    @Override
+    public List<PortfolioHolding> getHoldingsByPortfolio(Long portfoliold) {
+        return holdingRepo.findByPortfolioId(portfoliold);
+    }
+
+    // FIX: Added the missing deleteHolding method
+    @Override
+    public void deleteHolding(Long id) {
+        if (!holdingRepo.existsById(id)) {
+            throw new ResourceNotFoundException("Not found");
+        }
+        holdingRepo.deleteById(id);
+    }
 }
