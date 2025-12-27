@@ -6,16 +6,19 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "risk_analysis_results")
-@Data
-@NoArgsConstructor
+@Getter 
+@Setter 
+@NoArgsConstructor 
 @AllArgsConstructor
 public class RiskAnalysisResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
     private UserPortfolio portfolio;
+
     private Timestamp analysisDate;
     private Double highestStockPercentage;
     private Double highestSectorPercentage;
