@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
@@ -10,13 +11,9 @@ public class JwtUtil {
     private final String secret;
     private final long validityInMs;
 
-    // Required Constructor Signature
-    public JwtUtil() {
-        this.secret = "mySecretKeyForJwtAuthenticationMustBeLongEnough";
-        this.validityInMs = 3600000;
-    }
-
-    public JwtUtil(String secret, long validityInMs) {
+    // Requirement Step 0.6: Exact constructor signature
+    public JwtUtil(@Value("${jwt.secret}") String secret, 
+                   @Value("${jwt.validity}") long validityInMs) {
         this.secret = secret;
         this.validityInMs = validityInMs;
     }
@@ -32,12 +29,8 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secret.getBytes())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        return Jwts.parserBuilder().setSigningKey(secret.getBytes()).build()
+                .parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateToken(String token) {
