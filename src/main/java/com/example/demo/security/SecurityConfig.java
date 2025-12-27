@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.
 
 @Configuration
 public class SecurityConfig {
@@ -21,7 +22,9 @@ public class SecurityConfig {
     }
 
      @Bean
-     public Password
+     public PasswordEncoder passwordEncoder(){
+        return new BcryptPasswordEncoder();
+     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
