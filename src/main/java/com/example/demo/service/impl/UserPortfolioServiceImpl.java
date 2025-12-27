@@ -1,51 +1,47 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.UserPortfolio;
 import com.example.demo.repository.UserPortfolioRepository;
 import com.example.demo.service.UserPortfolioService;
-
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class UserPortfolioServiceImpl implements UserPortfolioService {
+    private final UserPortfolioRepository userPortfolioRepository;
 
-    private final UserPortfolioRepository repository;
-
-    // ✅ exact order
-    public UserPortfolioServiceImpl(UserPortfolioRepository repository) {
-        this.repository = repository;
+    public UserPortfolioServiceImpl(UserPortfolioRepository userPortfolioRepository) {
+        this.userPortfolioRepository = userPortfolioRepository;
     }
 
     @Override
     public UserPortfolio createPortfolio(UserPortfolio portfolio) {
-        return portfolio;
+        return userPortfolioRepository.save(portfolio);
     }
 
     @Override
     public UserPortfolio updatePortfolio(Long id, UserPortfolio portfolio) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
-        return portfolio;
+        UserPortfolio existing = getPortfolioById(id);
+        existing.setPortfolioName(portfolio.getPortfolioName());
+        return userPortfolioRepository.save(existing);
     }
 
     @Override
     public UserPortfolio getPortfolioById(Long id) {
-        if (id == null || id <= 0) {
-            throw new RuntimeException("Not found");
-        }
-        return new UserPortfolio();
+        return userPortfolioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Portfolio Not found"));
     }
 
     @Override
     public List<UserPortfolio> getPortfoliosByUser(Long userid) {
-        return repository.findByUserid(userid);
+        return userPortfolioRepository.findByUserid(userid);
     }
 
     @Override
     public void deactivatePortfolio(Long id) {
-        if (id == null) {
-            throw new RuntimeException("Not found");
-        }
+        UserPortfolio portfolio = getPortfolioById(id);
+        portfolio.setActive(false);
+        userPortfolioRepository.save(portfolio);
     }
 }
