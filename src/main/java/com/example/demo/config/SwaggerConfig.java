@@ -20,11 +20,9 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Stock Portfolio Risk Analyzer API")
                         .version("1.0")
-                        .description("Backend implementation for Stock Risk Analysis system"))
-                // Preserves the server URL required for your workspace
+                        .description("Backend Implementation for Stock Risk Analysis"))
                 .servers(List.of(new Server().url("https://9147.32procr.amypo.ai/")))
-                // Adds the "Authorize" button for JWT tokens
-                .addSecurityRequirement(new SecurityRequirement().addList("Bearer Authentication"))
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication", new SecurityScheme()
                                 .name("Bearer Authentication")
