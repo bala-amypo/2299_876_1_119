@@ -13,10 +13,10 @@ public class ApiResponse<T> {
     private T data;
 
     public static <T> ApiResponse<T> success(String message, T data) {
-        return new ApiResponse<>(true, message, data);
+        return new ApiResponse<T>(true, message, data); // Explicitly pass T
     }
 
     public static <T> ApiResponse<T> error(String message) {
-        return new ApiResponse<>(false, message, null);
+        return new ApiResponse<T>(false, message, null); // Explicitly pass T
     }
 }
