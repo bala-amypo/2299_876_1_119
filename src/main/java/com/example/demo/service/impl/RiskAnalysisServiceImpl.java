@@ -75,7 +75,7 @@ public class RiskAnalysisServiceImpl implements RiskAnalysisService {
         // 5. Check Risk
         boolean isHighRisk = maxStockPct > threshold.getMaxSingleStockPercentage() || 
                              maxSectorPct > threshold.getMaxSectorPercentage();
-        result.setIsHighRisk(isHighRisk);
+        result.setHighRisk(isHighRisk);
 
         return riskAnalysisResultRepository.save(result);
     }
