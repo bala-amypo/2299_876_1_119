@@ -11,7 +11,8 @@ public class JwtUtil {
     private final String secret;
     private final long validityInMs;
 
-    // Requirement Step 0.6: Exact constructor signature
+    // Requirement Step 0.6: MUST have this constructor signature
+    // Use @Value to tell Spring where to get the data from application.properties
     public JwtUtil(@Value("${jwt.secret}") String secret, 
                    @Value("${jwt.validity}") long validityInMs) {
         this.secret = secret;
