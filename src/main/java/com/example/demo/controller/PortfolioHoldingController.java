@@ -1,16 +1,15 @@
+
 package com.example.demo.controller;
 
 import com.example.demo.model.PortfolioHolding;
 import com.example.demo.service.PortfolioHoldingService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/holdings")
-@Tag(name = "Portfolio Holdings")
+@RequestMapping("/holdings")
 public class PortfolioHoldingController {
 
     private final PortfolioHoldingService service;
@@ -27,7 +26,8 @@ public class PortfolioHoldingController {
     @PutMapping("/{id}")
     public ResponseEntity<PortfolioHolding> updateHolding(
             @PathVariable Long id,
-            @RequestBody PortfolioHolding holding) {
+            @RequestBody PortfolioHolding holding
+    ) {
         return ResponseEntity.ok(service.updateHolding(id, holding));
     }
 
@@ -37,8 +37,7 @@ public class PortfolioHoldingController {
     }
 
     @GetMapping("/portfolio/{portfolioId}")
-    public ResponseEntity<List<PortfolioHolding>> getHoldingsByPortfolio(
-            @PathVariable Long portfolioId) {
+    public ResponseEntity<List<PortfolioHolding>> getHoldings(@PathVariable Long portfolioId) {
         return ResponseEntity.ok(service.getHoldingsByPortfolio(portfolioId));
     }
 

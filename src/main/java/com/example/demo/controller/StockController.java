@@ -1,16 +1,15 @@
+
 package com.example.demo.controller;
 
 import com.example.demo.model.Stock;
 import com.example.demo.service.StockService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stocks")
-@Tag(name = "Stocks")
+@RequestMapping("/stocks")
 public class StockController {
 
     private final StockService stockService;
@@ -39,7 +38,7 @@ public class StockController {
         return ResponseEntity.ok(stockService.getAllStocks());
     }
 
-    @PutMapping("/{id}/deactivate")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deactivateStock(@PathVariable Long id) {
         stockService.deactivateStock(id);
         return ResponseEntity.ok().build();

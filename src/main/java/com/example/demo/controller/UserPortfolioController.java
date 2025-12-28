@@ -2,13 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.model.UserPortfolio;
 import com.example.demo.service.UserPortfolioService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/portfolios")
-@Tag(name = "User Portfolio Management")
+@RequestMapping("/portfolios")
 public class UserPortfolioController {
 
     private final UserPortfolioService service;
@@ -17,26 +17,33 @@ public class UserPortfolioController {
         this.service = service;
     }
 
-    // ✅ REQUIRED BY TEST
     @PostMapping
-    public UserPortfolio createPortfolio(@RequestBody UserPortfolio portfolio) {
-        return service.createPortfolio(portfolio);
+    public ResponseEntity<UserPortfolio> createPortfolio(@RequestBody UserPortfolio portfolio) {
+        return ResponseEntity.ok(service.createPortfolio(portfolio));
     }
 
-    // ✅ REQUIRED BY TEST
+    @PutMapping("/{id}")
+    public ResponseEntity<UserPortfolio> updatePortfolio(
+            @PathVariable Long id,
+            @RequestBody UserPortfolio portfolio
+    ) {
+        return ResponseEntity.ok(service.updatePortfolio(id, portfolio));
+    }
+
     @GetMapping("/{id}")
-    public UserPortfolio getPortfolio(@PathVariable Long id) {
-        return service.getPortfolioById(id);
+    public ResponseEntity<UserPortfolio> getPortfolio(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getPortfolioById(id));
     }
 
-    // (extra endpoints are OK)
     @GetMapping("/user/{userId}")
-    public List<UserPortfolio> getByUser(@PathVariable Long userId) {
-        return service.getPortfoliosByUser(userId);
+    public ResponseEntity<List<UserPortfolio>> getUserPortfolios(@PathVariable Long userId) {
+        return ResponseEntity.ok(service.getPortfoliosByUser(userId));
     }
 
-    @PutMapping("/{id}/deactivate")
-    public void deactivate(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deactivatePortfolio(@PathVariable Long id) {
         service.deactivatePortfolio(id);
+        return ResponseEntity.ok().build();
     }
 }
+
