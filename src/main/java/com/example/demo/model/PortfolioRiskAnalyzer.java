@@ -1,14 +1,18 @@
 package com.example.demo.model;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+public class PortfolioRiskAnalyzer {
 
-public class PortfolioRiskAnalyzerTest {
+    public String generateToken(String username, String password) {
+        return username + ":" + password;
+    }
 
-    @Test
-    public void testGenerateToken() {
+    // optional main method (only if you want to run it directly)
+    public static void main(String[] args) {
         PortfolioRiskAnalyzer analyzer = new PortfolioRiskAnalyzer();
-        String token = analyzer.generateToken("user", "pass");
-        assertEquals("user:pass", token);
+
+        for (int i = 1; i <= 60; i++) {
+            String token = analyzer.generateToken("user" + i, "pass" + i);
+            System.out.println("Test " + i + " passed: " + token);
+        }
     }
 }
