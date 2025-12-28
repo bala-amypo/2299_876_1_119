@@ -21,7 +21,7 @@ public class SwaggerConfig {
                         .title("Stock Portfolio Risk Analyzer API")
                         .version("1.0")
                         .description("Backend Implementation for Stock Risk Analysis"))
-                .servers(List.of(new Server().url("https://9147.32procr.amypo.ai/")))
+                .servers(List.of(new Server().url("https://9188.32procr.amypo.ai/")))
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication", new SecurityScheme()
